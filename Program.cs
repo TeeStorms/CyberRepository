@@ -1,39 +1,37 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Media;
-using System.Text;
+using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Data.SqlTypes;
 
 namespace CyberAwarenessBot
 {
     class Program
     {
+        // Main method that runs the CyberAwarenessBot
         static void Main(string[] args)
         {
-
-            // Clear console and set colors for better readability
+            // Clear console and set background and text colors for a better user interface
             Console.Clear();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
 
-            // Display an instruction for the user to maximize the window
+            // Display a prompt asking the user to maximize the window for better experience
             Console.WriteLine("\n====================================================");
             Console.WriteLine("|    For the best experience, please maximize your  |");
             Console.WriteLine("|    window before continuing the application.      |");
             Console.WriteLine("====================================================");
             Console.ResetColor();
 
-            // Prompt user to press a key before proceeding
+            // Prompt user to press any key to proceed
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nPress any key to continue...");
             Console.ResetColor();
             Console.ReadKey(true); // Waits for user input
 
-            // Display welcome message
+            // Clear console and display the welcome message
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n==================================================");
@@ -41,8 +39,7 @@ namespace CyberAwarenessBot
             Console.WriteLine("==================================================");
             Console.ResetColor();
 
-
-            // Display ASCII art related to cybersecurity
+            // Display ASCII art related to cybersecurity awareness
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(@"
            Fight Bugs                      |     |
@@ -69,39 +66,40 @@ namespace CyberAwarenessBot
             ");
             Console.ResetColor();
 
-            // Path to the audio file
+            // Path to the audio file for a welcoming sound
             string audioFilePath = Path.Combine("audio.wav");
 
-
-            // Check if the welcome audio file exists
+            // Check if the audio file exists and play it
             if (File.Exists(audioFilePath))
             {
                 try
                 {
-                    // Play audio if the file is found
+                    // Create a SoundPlayer object to play the audio
                     SoundPlayer player = new SoundPlayer(audioFilePath);
                     player.Play();
 
-                    // Type out welcome message with delay for a better user experience
+                    // Simulate a typing effect for the welcome message
                     string welcomeMessage = "Hello! Welcome to the Cybersecurity Awareness Bot! I'm here to help you stay safe online.";
                     foreach (char c in welcomeMessage)
                     {
                         Console.Write(c);
-                        Thread.Sleep(79); // Simulate a typing effect
+                        Thread.Sleep(79); // Typing delay for effect
                     }
                     Console.WriteLine();
                 }
                 catch (Exception ex)
                 {
+                    // Handle any errors when trying to play the audio
                     Console.WriteLine($"Error playing audio: {ex.Message}");
                 }
             }
             else
             {
+                // If the audio file doesn't exist, inform the user
                 Console.WriteLine("\nOops! Audio file not found.");
             }
 
-            // Display a motivational message for cybersecurity awareness
+            // Display a motivational message for the user
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n====================================================");
             Console.WriteLine("|      Ready to protect your digital world,       |");
@@ -109,7 +107,7 @@ namespace CyberAwarenessBot
             Console.WriteLine("====================================================");
             Console.ResetColor();
 
-            // Ask user for their name
+            // Ask the user to input their name for personalization
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Please enter your name:");
             string name = Convert.ToString(Console.ReadLine());
@@ -123,6 +121,7 @@ namespace CyberAwarenessBot
             Console.Beep();
         }
 
+        // Method to start the text-based chatbot conversation
         static void StartTextChat(string name)
         {
             while (true)
@@ -137,7 +136,7 @@ namespace CyberAwarenessBot
                 // Set console encoding to UTF-8 to support symbols and emojis
                 Console.OutputEncoding = Encoding.UTF8;
 
-                // Inform user of available chatbot functionalities
+                // Display available chatbot functionalities and tips for user interaction
                 Console.WriteLine($"\n🔹 Hey {name}, let's explore cybersecurity together! 🔹");
                 Console.WriteLine("💡 Here’s what you can do:");
                 Console.WriteLine("📌 Type 'topics' to discover cybersecurity topics.");
@@ -182,18 +181,20 @@ namespace CyberAwarenessBot
                 }
                 catch (Exception ex)
                 {
+                    // Handle any errors during user interaction
                     Respond($"Oops! Something went wrong. Please try again. (Error: {ex.Message})");
                 }
             }
         }
 
+        // Generate a response based on user input
         static string GenerateResponse(string userInput)
         {
             try
             {
                 userInput = userInput.ToLower(); // Ensure case-insensitivity
 
-                // Response for phishing-related queries
+                // Responses to various cybersecurity-related topics
                 if (userInput.Contains("phishing") || userInput.Contains("email"))
                 {
                     return "🚨 **Phishing Scams Warning!**\n" +
@@ -201,7 +202,6 @@ namespace CyberAwarenessBot
                            "- 🔗 **Never** click on suspicious links.\n" +
                            "- 📧 Always verify the sender's email address.";
                 }
-                // Response for password-related queries
                 else if (userInput.Contains("password"))
                 {
                     return "🔑 **Strong Password Practices:**\n" +
@@ -209,7 +209,6 @@ namespace CyberAwarenessBot
                            "- Mix **uppercase, lowercase, numbers, and symbols**.\n" +
                            "- Avoid common words and predictable patterns.";
                 }
-                // Response for suspicious links
                 else if (userInput.Contains("link") || userInput.Contains("suspicious"))
                 {
                     return "🔗 **Avoid Suspicious Links:**\n" +
@@ -217,7 +216,6 @@ namespace CyberAwarenessBot
                            "- 🛡️ Hover over links to preview the destination before clicking.\n" +
                            "- 🔍 Use a **URL checker** to verify safety.";
                 }
-                // Response for safe browsing
                 else if (userInput.Contains("safe browsing") || userInput.Contains("online safety"))
                 {
                     return "🌍 **Safe Browsing Tips:**\n" +
@@ -225,12 +223,10 @@ namespace CyberAwarenessBot
                            "- 🛑 Avoid downloading files from **unknown sources**.\n" +
                            "- 🕵️‍♂️ Use a **trusted ad-blocker** to prevent malicious ads.";
                 }
-                // Response for chatbot's well-being query
                 else if (userInput.Contains("how are you"))
                 {
                     return "😊 I'm just a chatbot, but I'm here and ready to assist you!";
                 }
-                // Response for chatbot's purpose query
                 else if (userInput.Contains("purpose"))
                 {
                     return "🤖 **My Purpose:**\n" +
@@ -240,10 +236,11 @@ namespace CyberAwarenessBot
                 }
                 else if (userInput.Contains("ask about"))
                 {
-                    return "🔑 **Strong Password Practices:**\n" +
-                           "        - 🚨 **Phishing Scams Warning!**\n" +
-                           "        - 🔗 **Suspicious Links:**\n" +
-                           "        - 🌍 **Safe Browsing Tips:**";
+                    return "🔑 **Topics I can help with:**\n" +
+                           "        - 🚨 **Phishing Scams**\n" +
+                           "        - 🔑 **Strong Password Practices**\n" +
+                           "        - 🔗 **Suspicious Links**\n" +
+                           "        - 🌍 **Safe Browsing Tips**";
                 }
                 else
                 {
@@ -256,6 +253,7 @@ namespace CyberAwarenessBot
             }
         }
 
+        // Display the list of available topics for the user to explore
         static void ShowTopics()
         {
             Respond("\n📚 **I can help with the following topics:**\n" +
@@ -265,14 +263,12 @@ namespace CyberAwarenessBot
                     "- 🌍 **Safe browsing tips** (Browse the web securely)");
         }
 
-
+        // Respond method to output chatbot messages with a specific color
         static void Respond(string message)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"\nChatbot: {message}\n");
             Console.ResetColor();
         }
-
     }
-    }
-
+}
