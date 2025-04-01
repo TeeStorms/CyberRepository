@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -114,6 +115,77 @@ namespace CyberAwarenessBot
             string name = Convert.ToString(Console.ReadLine());
             Console.ResetColor();
             Console.WriteLine("\n==================================================");
+
+            / Start the chatbot conversation
+            StartTextChat(name);
+
+            // Play a beep sound when the chatbot session ends
+            Console.Beep();
+        }
+
+        static void StartTextChat(string name)
+        {
+            while (true)
+            {
+                // Display chatbot options for user interaction
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\n====================================");
+                Console.WriteLine(" Options: ");
+                Console.WriteLine("====================================");
+                Console.ResetColor();
+
+                // Set console encoding to UTF-8 to support symbols and emojis
+                Console.OutputEncoding = Encoding.UTF8;
+
+                // Inform user of available chatbot functionalities
+                Console.WriteLine($"\n🔹 Hey {name}, let's explore cybersecurity together! 🔹");
+                Console.WriteLine("💡 Here’s what you can do:");
+                Console.WriteLine("📌 Type 'topics' to discover cybersecurity topics.");
+                Console.WriteLine("❓ Ask me: 'How are you?', 'What is your purpose?', or 'What can I ask you about?'.");
+                Console.WriteLine("🚪 Type 'exit' anytime to leave the chat.");
+
+                // Prompt user for input
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("You: ");
+                Console.ResetColor();
+
+                try
+                {
+                    string userInput = Console.ReadLine().Trim();
+
+                    // If user input is empty, prompt them to enter a valid response
+                    if (string.IsNullOrEmpty(userInput))
+                    {
+                        Respond("I didn't quite understand that. Could you please rephrase?");
+                        continue;
+                    }
+
+                    userInput = userInput.ToLower();
+
+                    // Exit condition for chatbot session
+                    if (userInput == "exit")
+                    {
+                        Respond($"Hey {name}, stay vigilant and protect your online presence! Have a great day!");
+                        break;
+                    }
+                    // Show available topics
+                    else if (userInput == "topics")
+                    {
+                        ShowTopics();
+                    }
+                    else
+                    {
+                        // Generate and display response based on user input
+                        string response = GenerateResponse(userInput);
+                        Respond(response);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Respond($"Oops! Something went wrong. Please try again. (Error: {ex.Message})");
+                }
+            }
         }
     }
-}
+    }
+
