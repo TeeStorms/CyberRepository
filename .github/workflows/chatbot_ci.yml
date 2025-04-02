@@ -19,16 +19,16 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.x  # Adjust to your C# version
+          dotnet-version: '9.0.200'  # Match your local .NET version
 
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore CyberAwarenessBot.sln  # Explicitly specify the solution file
 
       - name: Check Code Formatting
-        run: dotnet format --verify-no-changes
+        run: dotnet format CyberAwarenessBot.sln --verify-no-changes || exit 1  # Enforce formatting
 
       - name: Build Project
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build CyberAwarenessBot.sln --configuration Release --no-restore
 
-      - name: Run Syntax Check
-        run: dotnet build --no-restore --no-incremental 
+      - name: Run Tests
+        run: dotnet test CyberAwarenessBot.sln --no-build --verbosity normal
