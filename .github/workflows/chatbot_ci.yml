@@ -24,7 +24,7 @@ jobs:
       - name: Install .NET Framework 4.8 Developer Pack
         run: |
           sudo apt-get update
-          sudo apt-get install -y dotnet-framework-4.8-dev-pack
+          sudo apt-get install -y dotnet-sdk-4.8
 
       - name: Restore Dependencies
         run: dotnet restore CyberAwarenessBot.sln  # Ensure this is your correct solution file
