@@ -3,47 +3,29 @@ name: C# CI Pipeline
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-<<<<<<< HEAD
-          dotnet-version: '9.0.200'  # Match your local .NET version
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '7.x'
 
-      - name: Restore Dependencies
-        run: dotnet restore CyberAwarenessBot.sln  # Explicitly specify the solution file
+    - name: Restore dependencies
+      run: dotnet restore CyberRepository.sln
 
-      - name: Check Code Formatting
-        run: dotnet format CyberAwarenessBot.sln --verify-no-changes || exit 1  # Enforce formatting
-=======
-          dotnet-version: 9.0.200  # Match your local .NET version
+    - name: Build
+      run: dotnet build CyberRepository.sln --no-restore
 
-      - name: Restore Dependencies
-        run: dotnet restore CyberAwarenessBot.sln  # Ensure this is your correct solution file
-
-      - name: Check Code Formatting
-        run: dotnet format CyberAwarenessBot.sln --verify-no-changes || exit 1  # Fails the job if formatting is incorrect
->>>>>>> 9f4f0f9efc92108a282ac228ad31adbdb6023754
-
-      - name: Build Project
-        run: dotnet build CyberAwarenessBot.sln --configuration Release --no-restore
-
-<<<<<<< HEAD
-      - name: Run Tests
-        run: dotnet test CyberAwarenessBot.sln --no-build --verbosity normal
-=======
-      - name: Run Syntax Check
-        run: dotnet build CyberAwarenessBot.sln --no-restore --no-incremental
->>>>>>> 9f4f0f9efc92108a282ac228ad31adbdb6023754
+    - name: Run tests
+      run: dotnet test CyberRepository.sln --no-build --verbosity normal
