@@ -21,6 +21,9 @@ jobs:
         with:
           dotnet-version: 9.0.200  # Match your local .NET version
 
+      - name: Install .NET Framework Targeting Pack (Mono)
+        run : sudo apt update && sudo apt install -y mono-devel
+
       - name: Install .NET Framework 4.8 Developer Pack
         run: |
           sudo apt-get update
