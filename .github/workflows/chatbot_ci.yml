@@ -1,6 +1,10 @@
 name: C# CI Pipeline
 
-on:
+dotnet format` command.
+
+Here is the modified workflow file to include the project or solution file:
+
+```yamlon:
   push:
     branches:
       - master
@@ -10,25 +14,55 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs
+name: C# CI Pipeline
+
+on:
+  push:
+    branches:
+-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+      - master
+  pull_request:
+    branches:
+      -        uses: actions/checkout@v4
+
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+ name: Setup .NET
+        uses: actions/setup-dotnet    steps:
+      - name: Checkout Repository
+        uses@v3
+        with:
+          dotnet-version: 8.0.x: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x  # Adjust to your C# version
+  # Adjust to your C# version
 
-      - name: Restore Dependencies
+      - name: Restore Dependencies        uses: actions/setup-dotnet@v3
+        with:
+
         run: dotnet restore
 
+      - name: Check Code          dotnet-version: 8.0.x  # Adjust to your C Formatting
+        run: dotnet format# version
+
+      - name: Restore Dependencies
+        run --verify-no-changes CyberRepository.sln  # Specify the: dotnet restore
+
       - name: Check Code Formatting
-        run: dotnet format --verify-no-changes
+ solution file here
 
       - name: Build Project
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet format <path-to-your-solution-or-project-file> --verify-no-changes
+
+      - name:        run: dotnet build --configuration Release --no-restore
 
       - name: Run Syntax Check
-        run: dotnet build --no-restore --no-incremental 
+        run Build: dotnet build --no-restore --no-incremental 
