@@ -10,28 +10,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 9.0.200  # Match your local .NET version
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
-      - name: Install .NET Framework Targeting Pack (Mono)
-        run: sudo apt update && sudo apt install -y mono-devel
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
 
-      - name: Restore Dependencies
-        run: dotnet restore CyberAwarenessBot.sln  # Ensure this is your correct solution file
+      - name: Restore NuGet packages
+        run: nuget restore "CyberAwarenessBot.sln"
 
       - name: Check Code Formatting
-        run: dotnet format CyberAwarenessBot.sln --verify-no-changes || exit 1  # Fails the job if formatting is incorrect
+        run: dotnet format --verify-no-changes "CyberAwarenessBot.sln" || exit 1
 
       - name: Build Project
-        run: dotnet build CyberAwarenessBot.sln --configuration Release --no-restore
-
-      - name: Run Syntax Check
-        run: dotnet build CyberAwarenessBot.sln --no-restore --no-incremental
+        run: msbuild "CyberAwarenessBot.sln" /p:Configuration=Release
