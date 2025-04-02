@@ -1,68 +1,34 @@
 name: C# CI Pipeline
 
-dotnet format` command.
-
-Here is the modified workflow file to include the project or solution file:
-
-```yamlon:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-
-jobs:
-  build:
-    runs
-name: C# CI Pipeline
-
 on:
   push:
     branches:
--on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
       - master
   pull_request:
     branches:
-      -        uses: actions/checkout@v4
-
       - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
- name: Setup .NET
-        uses: actions/setup-dotnet    steps:
+    steps:
       - name: Checkout Repository
-        uses@v3
-        with:
-          dotnet-version: 8.0.x: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Setup .NET
-  # Adjust to your C# version
-
-      - name: Restore Dependencies        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v3
         with:
-
-        run: dotnet restore
-
-      - name: Check Code          dotnet-version: 8.0.x  # Adjust to your C Formatting
-        run: dotnet format# version
+          dotnet-version: 9.0.200  # Match your local .NET version
 
       - name: Restore Dependencies
-        run --verify-no-changes CyberRepository.sln  # Specify the: dotnet restore
+        run: dotnet restore CyberAwarenessBot.sln  # Ensure this is your correct solution file
 
       - name: Check Code Formatting
- solution file here
+        run: dotnet format CyberAwarenessBot.sln --verify-no-changes || exit 1  # Fails the job if formatting is incorrect
 
       - name: Build Project
-        run: dotnet format <path-to-your-solution-or-project-file> --verify-no-changes
-
-      - name:        run: dotnet build --configuration Release --no-restore
+        run: dotnet build CyberAwarenessBot.sln --configuration Release --no-restore
 
       - name: Run Syntax Check
-        run Build: dotnet build --no-restore --no-incremental 
+        run: dotnet build CyberAwarenessBot.sln --no-restore --no-incremental
