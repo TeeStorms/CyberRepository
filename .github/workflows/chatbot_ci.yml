@@ -22,12 +22,7 @@ jobs:
           dotnet-version: 9.0.200  # Match your local .NET version
 
       - name: Install .NET Framework Targeting Pack (Mono)
-        run : sudo apt update && sudo apt install -y mono-devel
-
-      - name: Install .NET Framework 4.8 Developer Pack
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y dotnet-sdk-4.8
+        run: sudo apt update && sudo apt install -y mono-devel
 
       - name: Restore Dependencies
         run: dotnet restore CyberAwarenessBot.sln  # Ensure this is your correct solution file
