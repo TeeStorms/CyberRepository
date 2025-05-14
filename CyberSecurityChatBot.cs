@@ -40,7 +40,6 @@ namespace CyberAwarenessBot
                 "🗣️ **Be Careful What You Share:** Think twice before posting personal information online.",
                 "🌐 **Secure Your Network:** Use strong passwords for your Wi-Fi and consider a VPN on public networks."
             }}
-            // You can expand this dictionary with more topics and their three key points
         };
 
         private const string KeywordResponsesFile = "keywordResponses.json";
@@ -50,7 +49,6 @@ namespace CyberAwarenessBot
         private Dictionary<string, KeywordHandler> keywordHandlers;
         private string currentMood = null;
 
-        // Delegate for handling keywords
         private delegate void KeywordHandler(string userInput);
 
         public CyberSecurityChatBot(string name) : base(name)
@@ -159,7 +157,6 @@ namespace CyberAwarenessBot
                 { "scam", HandleKeyword },
                 { "privacy", HandleKeyword },
                 { "phishing", HandleKeyword }
-                // Add handlers for any new topics you include
             };
         }
 
@@ -192,17 +189,15 @@ namespace CyberAwarenessBot
             }
             else
             {
-                Respond("🤔 Hmm, I don't seem to have specific information on that right now. Try one of the topics listed above!");
+                Console.WriteLine("🤔 Hmm, I don't seem to have specific information on that right now. Try one of the topics listed above!");
             }
-            Respond("Feel free to ask about another topic or let me know if you want more details on any of these!");
+            Console.WriteLine("Feel free to ask about another topic or let me know if you want more details on any of these!");
         }
-
 
         protected override void HandleSentiment(string userInput)
         {
             if (!string.IsNullOrEmpty(userInput))
             {
-                // Check if the input matches a known topic keyword directly
                 var keyword = DetectKeyword(userInput);
                 if (!string.IsNullOrEmpty(keyword))
                 {
@@ -215,7 +210,6 @@ namespace CyberAwarenessBot
                 {
                     currentMood = mood;
                     userMemory["lastMood"] = mood;
-                    // ... (rest of your switch logic)
                 }
                 else if (IsFollowUpQuestion(userInput) && lastTopic != null)
                 {
@@ -225,7 +219,6 @@ namespace CyberAwarenessBot
                 }
                 else
                 {
-                    // Reference previous interest if available
                     if (userMemory.ContainsKey("interest"))
                     {
                         Respond($"Previously, you asked about {userMemory["interest"]}. Would you like to continue on that, or explore something else?");
@@ -259,36 +252,32 @@ namespace CyberAwarenessBot
         {
             if (keywordResponses.ContainsKey(keyword))
             {
-                // List of alternative introductory phrases
                 var intros = new List<string>
-        {
-            $"Here are some key things to know about {keyword.ToUpper()}:",
-            $"Let me share some important tips on {keyword.ToUpper()}:",
-            $"Consider these points about {keyword.ToUpper()}:",
-            $"Some essential advice for {keyword.ToUpper()}:",
-            $"What you should remember about {keyword.ToUpper()}:"
-        };
+                {
+                    $"Here are some key things to know about {keyword.ToUpper()}:",
+                    $"Let me share some important tips on {keyword.ToUpper()}:",
+                    $"Consider these points about {keyword.ToUpper()}:",
+                    $"Some essential advice for {keyword.ToUpper()}:",
+                    $"What you should remember about {keyword.ToUpper()}:"
+                };
 
-                // Pick a random introduction
                 string intro = intros[random.Next(intros.Count)];
                 Respond(intro);
 
-                // Shuffle the points for variety
                 var points = keywordResponses[keyword].OrderBy(x => random.Next()).ToList();
                 foreach (var point in points)
                 {
                     Respond($"- {point}");
                 }
 
-                // Add a follow-up prompt to keep the conversation going
                 var followUps = new List<string>
-        {
-            "Is there a particular point you'd like to know more about?",
-            "Would you like tips on another topic?",
-            "Do you have any questions about this?",
-            "Let me know if you want to dive deeper into any of these!",
-            "What else are you curious about in cybersecurity?"
-        };
+                {
+                    "Is there a particular point you'd like to know more about?",
+                    "Would you like tips on another topic?",
+                    "Do you have any questions about this?",
+                    "Let me know if you want to dive deeper into any of these!",
+                    "What else are you curious about in cybersecurity?"
+                };
                 Respond(followUps[random.Next(followUps.Count)]);
             }
             else
@@ -312,7 +301,6 @@ namespace CyberAwarenessBot
         {
             foreach (var keyword in keywordResponses.Keys)
             {
-                // Check for both singular and plural forms
                 if (userInput.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0 ||
                     userInput.IndexOf(keyword + "s", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
@@ -327,7 +315,6 @@ namespace CyberAwarenessBot
         private bool IsFollowUpQuestion(string userInput)
         {
             string[] followUpPhrases = { "can you explain", "what else", "how does that work", "give me another", "continue", "go on", "tell me more about", "why is that", "what if" };
-
             foreach (var phrase in followUpPhrases)
             {
                 if (userInput.IndexOf(phrase, StringComparison.OrdinalIgnoreCase) >= 0)
@@ -340,9 +327,7 @@ namespace CyberAwarenessBot
 
         protected internal void AddInterest(string topic)
         {
-            // Always update the most recent interest
             userMemory["interest"] = topic;
-
             if (userMemory.ContainsKey("interests"))
             {
                 var interests = userMemory["interests"].Split(',').ToList();
@@ -364,6 +349,5 @@ namespace CyberAwarenessBot
                 return userMemory["interests"].Split(',').ToList();
             return new List<string>();
         }
-
     }
 }

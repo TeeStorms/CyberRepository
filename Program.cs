@@ -7,11 +7,7 @@ class Program
     {
         ConsoleUI.AskUserName(out string userName);
         CyberSecurityChatBot bot = new CyberSecurityChatBot(userName);
-
         bot.StartChat();
-
-        // Save dictionaries before exiting
-        bot.SaveDictionaries();
+        bot.SaveDictionaries(); // Save dictionaries before exiting
     }
 }
-

@@ -5,9 +5,9 @@ using System.Threading;
 
 namespace CyberAwarenessBot
 {
-    public static class AudioPlayer // Made the class static as it only contains a static method
+    public static class AudioPlayer
     {
-        private static readonly string AudioFilePath = Path.Combine("audio.wav"); // Renamed for clarity
+        private static readonly string AudioFilePath = Path.Combine("audio.wav");
 
         /// <summary>
         /// Plays a welcome audio file (if available) and displays a welcome message with a typing effect.
@@ -18,22 +18,22 @@ namespace CyberAwarenessBot
             {
                 try
                 {
-                    using (SoundPlayer player = new SoundPlayer(AudioFilePath)) // Using 'using' for proper resource disposal
+                    using (SoundPlayer player = new SoundPlayer(AudioFilePath))
                     {
                         player.Play();
 
-                        string welcomeMessage = "Hello! 👋 Welcome to the Cybersecurity Awareness Bot! I'm here to help you stay safe online. 🛡️"; // Added emojis for engagement
+                        string welcomeMessage = "Hello! 👋 Welcome to the Cybersecurity Awareness Bot! I'm here to help you stay safe online. 🛡️";
                         foreach (char c in welcomeMessage)
                         {
                             Console.Write(c);
-                            Thread.Sleep(50); // Slightly faster typing effect
+                            Thread.Sleep(50);
                         }
                         Console.WriteLine();
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.ForegroundColor = ConsoleColor.Yellow; // Indicate a warning
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"⚠️ Error playing audio: {ex.Message}");
                     Console.ResetColor();
                 }
@@ -41,7 +41,7 @@ namespace CyberAwarenessBot
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("🔇 Welcome audio file not found."); // More descriptive message
+                Console.WriteLine("🔇 Welcome audio file not found.");
                 Console.ResetColor();
             }
         }

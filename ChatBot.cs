@@ -22,8 +22,7 @@ namespace CyberAwarenessBot
         public abstract void DisplayWelcomeMessage();
 
         /// <summary>
-        /// Starts an interactive chat session with the user, prioritizing understanding their initial feelings.
-        /// Displays options and processes user input in a loop until the user exits.
+        /// Starts an interactive chat session with the user.
         /// </summary>
         public virtual void StartChat()
         {
@@ -31,12 +30,12 @@ namespace CyberAwarenessBot
 
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("\n" + new string('=', 50));
-            Console.WriteLine(" 😊 Before we begin, how are you feeling today?"); // Initial question about feelings
+            Console.WriteLine(" 😊 Before we begin, how are you feeling today?");
             Console.WriteLine(" (e.g., 'I'm feeling curious', 'I'm a bit worried')");
             Console.WriteLine(new string('=', 50));
             Console.Write("You: ");
             string initialFeeling = Console.ReadLine()?.Trim().ToLower();
-            HandleInitialSentiment(initialFeeling); // New method to process initial sentiment
+            HandleInitialSentiment(initialFeeling);
 
             while (true)
             {
@@ -54,7 +53,7 @@ namespace CyberAwarenessBot
                 Console.Write("You: ");
 
                 string userInput = Console.ReadLine()?.Trim().ToLower();
-     
+
                 if (string.IsNullOrEmpty(userInput))
                 {
                     Respond("🤔 Hmm, I didn't catch that. Could you say it again?");
@@ -72,7 +71,6 @@ namespace CyberAwarenessBot
                 }
                 else if (userInput == "phishing tip")
                 {
-                    // Provide a random phishing tip if available
                     if (this is CyberSecurityChatBot csBot && csBot.keywordResponses.ContainsKey("phishing"))
                     {
                         var tips = csBot.keywordResponses["phishing"];
@@ -109,7 +107,6 @@ namespace CyberAwarenessBot
                 }
                 else
                 {
-                    // If the input doesn't match any command, handle as a general sentiment/question
                     HandleSentiment(userInput);
                 }
             }
@@ -117,25 +114,22 @@ namespace CyberAwarenessBot
 
         /// <summary>
         /// Abstract method to handle the user's initial expression of feeling.
-        /// Must be implemented by derived classes.
         /// </summary>
         protected abstract void HandleInitialSentiment(string feeling);
 
         /// <summary>
-        /// Hook for handling topics. Must be implemented by derived classes.
+        /// Hook for handling topics.
         /// </summary>
         protected abstract void HandleTopics();
 
         /// <summary>
-        /// Hook for handling sentiment during the chat. Must be implemented by derived classes.
+        /// Hook for handling sentiment during the chat.
         /// </summary>
-        /// <param name="userInput">The user's input.</param>
         protected abstract void HandleSentiment(string userInput);
 
         /// <summary>
-        /// Displays the chatbot's response in a distinct color for readability.
+        /// Displays the chatbot's response in a distinct color.
         /// </summary>
-        /// <param name="message">The response message to display.</param>
         protected void Respond(string message)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;

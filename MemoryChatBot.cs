@@ -107,7 +107,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // Check for expressed sentiment first
             string mood = SentimentAnalyzer.AnalyzeMoodCategory(userInput);
             if (mood != "neutral")
             {
@@ -143,7 +142,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // User introduces their name
             if (userInput.Contains("my name is"))
             {
                 var name = userInput.Substring(userInput.IndexOf("my name is") + 10).Trim();
@@ -152,7 +150,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // User expresses interest in a topic
             if (userInput.Contains("i'm interested in"))
             {
                 var topic = userInput.Substring(userInput.IndexOf("i'm interested in") + 17).Trim().ToLower();
@@ -162,7 +159,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // User asks about saved interests
             if (userInput.Contains("tell me about my interest"))
             {
                 var topic = _userMemory.Recall("topic");
@@ -178,7 +174,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // Handle general sentiment (for immediate feedback)
             var sentimentResponse = SentimentAnalyzer.AnalyzeMood(userInput);
             if (!string.IsNullOrEmpty(sentimentResponse))
             {
@@ -186,7 +181,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // Check for keyword topics
             foreach (var topic in TopicResponses.Keys)
             {
                 if (userInput.Contains(topic))
@@ -200,15 +194,11 @@ namespace CyberAwarenessBot
                 }
             }
 
-            // User asks for more info (now implying more points)
             if (userInput.Contains("more") || userInput.Contains("explain"))
             {
                 if (!string.IsNullOrEmpty(_currentTopic))
                 {
-                    // If the user asks for more, provide another point if available.
-                    // You might want to keep track of which points have been given.
                     var points = TopicResponses[_currentTopic];
-                    // Simple approach: give a random point again (could be improved)
                     Respond("Let me elaborate with another key point: " + points[random.Next(points.Count)]);
                 }
                 else
@@ -218,7 +208,6 @@ namespace CyberAwarenessBot
                 return;
             }
 
-            // Default response for unknown input
             Respond("🤔 I'm not quite sure I follow. You can ask about passwords, scams, privacy, or phishing to get three key points on each.");
         }
 
@@ -238,7 +227,6 @@ namespace CyberAwarenessBot
             }
         }
 
-        // Helper method to pick a random response from topic list (single point)
         private string GetRandomResponse(string topic)
         {
             if (TopicResponses.ContainsKey(topic))

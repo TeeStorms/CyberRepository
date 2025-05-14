@@ -41,7 +41,6 @@ namespace CyberAwarenessBot
             {
                 return "happy";
             }
-            // Add more sentiment categories as needed
             else
             {
                 return "neutral";
@@ -61,11 +60,9 @@ namespace CyberAwarenessBot
             {
                 return "You're very welcome!";
             }
-            // Add more general positive/negative feedback phrases
+
             return null;
         }
-
-
 
         // Old: Direct sentiment-to-response lookup (you can keep this for flexibility)
         public static string AnalyzeSentimentResponse(string input)
@@ -85,7 +82,7 @@ namespace CyberAwarenessBot
                 }
             }
 
-            return null; // No sentiment detected
+            return null;
         }
     }
 }
