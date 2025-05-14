@@ -1,0 +1,33 @@
+{
+  "password": [
+    "🔑 **Create Strong Passwords:** Use a mix of uppercase, lowercase, numbers, and symbols.",
+    "🔒 **Unique Passwords:** Avoid reusing passwords across different online accounts.",
+    "🛡️ **Password Manager:** Consider using a password manager to securely store complex passwords."
+  ],
+  "scam": [
+    "🚨 **Be Skeptical:** Don't trust unsolicited messages asking for personal information.",
+    "📧 **Verify Links:** Never click on suspicious links or download attachments from unknown senders.",
+    "⚠️ **Too Good to Be True:** If an offer seems unbelievable, it's likely a scam."
+  ],
+  "privacy": [
+    "🔐 **Review Privacy Settings:** Regularly check and adjust privacy settings on your online accounts.",
+    "🕵️ **Limit Sharing:** Be mindful of the personal information you share online.",
+    "🌐 **Secure Connections:** Use secure (HTTPS) websites, especially when entering sensitive data."
+  ],
+  "phishing": [
+    "🎣 **Urgency is a Red Flag:** Be cautious of emails or messages that demand immediate action.",
+    "📧 **Check Sender Details:** Always verify the sender's email address for inconsistencies.",
+    "🔍 **Hover Before Clicking:** Hover your mouse over links to see the actual URL before clicking."
+  ],
+  "basics": [
+    "🛡️ **Keep Software Updated:** Regularly update your operating system, browser, and antivirus software.",
+    "🔥 **Use a Firewall:** Enable your firewall to help protect against unauthorized access.",
+    "💾 **Backup Your Data:** Regularly back up important files in case of data loss."
+  ],
+  "general": [
+    "🧠 **Stay Informed:** Keep learning about common cybersecurity threats and how to avoid them.",
+    "🗣️ **Be Careful What You Share:** Think twice before posting personal information online.",
+    "🌐 **Secure Your Network:** Use strong passwords for your Wi-Fi and consider a VPN on public networks."
+  ]
+  // You can add more topics here following the same structure
+}
